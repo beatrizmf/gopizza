@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import { useOrder } from '../../hooks/order';
@@ -13,7 +13,13 @@ import { Buttons } from '../../components/Layout/styles';
 import ToppingItem from './ToppingItem';
 
 const ChooseToppings: React.FC = () => {
-  const { crust, setActiveStep, avaliableToppings, total } = useOrder();
+  const {
+    crust,
+    setActiveStep,
+    avaliableToppings,
+
+    total,
+  } = useOrder();
 
   const { push } = useHistory();
 

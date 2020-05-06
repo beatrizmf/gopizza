@@ -6,39 +6,35 @@ import ToppingIcon from './ToppingIcon';
 import { Topping, useOrder } from '../../hooks/order';
 
 const ToppingItem: React.FC<{ topping: Topping }> = ({ topping }) => {
-  const { toppings, setToppings, setTotal } = useOrder();
+  const { toppings, setToppings, setTotal, prices, crust, size } = useOrder();
   const [isToppingSelected, setIsToppingSelected] = useState(false);
 
   useEffect(() => {
-    setIsToppingSelected(toppings.findIndex(item => item === topping) > 0);
-  }, [topping, toppings]);
+    setIsToppingSelected(toppings.findIndex(item => item === topping) > -1);
+
+    const extrasToppings = toppings.length - 3;
+
+    if (size && crust) {
+      const prevTotal = prices.size[size] + prices.crust[crust];
+      const extraValue = extrasToppings > 0 ? extrasToppings * 0.5 : 0;
+      setTotal(prevTotal + extraValue);
+    }
+  }, [crust, prices, setTotal, size, topping, toppings]);
 
   const handleAdd = useCallback(
     (toppingToAdd: Topping): void => {
       setToppings(prevToppings => [...prevToppings, toppingToAdd]);
-
-      if (toppings.length > 3) {
-        setTotal(prevTotal => prevTotal + 0.5);
-      }
     },
-    [setToppings, setTotal, toppings],
+    [setToppings],
   );
 
   const handleRemove = useCallback(
     (toppingToRemove: Topping): void => {
-      if (toppings.length > 3) {
-        setTotal(prevTotal => prevTotal - 0.5);
-      }
-
       setToppings(prevToppings =>
         prevToppings.filter(item => item !== toppingToRemove),
       );
-
-      if (toppings.length > 3) {
-        setTotal(prevTotal => prevTotal + 0.5);
-      }
     },
-    [setToppings, setTotal, toppings],
+    [setToppings],
   );
 
   return (
