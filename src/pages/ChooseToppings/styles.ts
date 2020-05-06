@@ -6,10 +6,11 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
 
-  > p {
-    margin-top: 8px;
+    p {
+      margin-top: 8px;
+      padding: 6px;
+    }
   }
 
   a > button {
