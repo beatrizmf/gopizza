@@ -12,7 +12,7 @@ const Cancel: React.FC = () => {
     push('/');
   }, [push, reset]);
 
-  return <Container onClick={handleCancel}>Cancel</Container>;
+  return <Container onClick={handleCancel}>cancel</Container>;
 };
 
 export default Cancel;
