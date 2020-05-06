@@ -14,10 +14,12 @@ import ToppingItem from './ToppingItem';
 
 const ChooseToppings: React.FC = () => {
   const {
+    size,
     crust,
     setActiveStep,
+    setToppings,
     avaliableToppings,
-
+    maximumToppingsBySize,
     total,
   } = useOrder();
 
@@ -26,7 +28,8 @@ const ChooseToppings: React.FC = () => {
   useEffect(() => {
     if (!crust) push('/choose-crust');
     setActiveStep('toppings');
-  }, [crust, push, setActiveStep]);
+    setToppings([]);
+  }, [crust, push, setActiveStep, setToppings]);
 
   return (
     <Container>
@@ -36,6 +39,7 @@ const ChooseToppings: React.FC = () => {
           you can choose up to three free toppings, above that you pay $0,50 for
           each extra
         </p>
+        <p>{`maximum toppings for the ${size} size is ${maximumToppingsBySize}`}</p>
       </div>
 
       <Options>

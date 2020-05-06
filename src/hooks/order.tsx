@@ -46,6 +46,7 @@ interface OrderContext {
   setCrust: React.Dispatch<React.SetStateAction<Crust | null>>;
 
   avaliableToppings: Topping[];
+  maximumToppingsBySize: number;
   toppings: Topping[];
   setToppings: React.Dispatch<React.SetStateAction<Topping[]>>;
 
@@ -90,6 +91,12 @@ export const OrderProvider: React.FC = ({ children }) => {
     'spinach',
   ]);
 
+  const [maximumToppingsBySize] = useState({
+    small: 5,
+    medium: 7,
+    large: 9,
+  });
+
   const [total, setTotal] = useState(0);
 
   const reset = useCallback(() => {
@@ -109,6 +116,7 @@ export const OrderProvider: React.FC = ({ children }) => {
         setSize,
         crust,
         setCrust,
+        maximumToppingsBySize: size ? maximumToppingsBySize[size] : 0,
         avaliableToppings,
         toppings,
         setToppings,

@@ -6,7 +6,15 @@ import ToppingIcon from './ToppingIcon';
 import { Topping, useOrder } from '../../hooks/order';
 
 const ToppingItem: React.FC<{ topping: Topping }> = ({ topping }) => {
-  const { toppings, setToppings, setTotal, prices, crust, size } = useOrder();
+  const {
+    maximumToppingsBySize,
+    toppings,
+    setToppings,
+    setTotal,
+    prices,
+    crust,
+    size,
+  } = useOrder();
   const [isToppingSelected, setIsToppingSelected] = useState(false);
 
   useEffect(() => {
@@ -57,7 +65,9 @@ const ToppingItem: React.FC<{ topping: Topping }> = ({ topping }) => {
 
           <ControlButton
             onClick={() => handleAdd(topping)}
-            disabled={isToppingSelected}
+            disabled={
+              isToppingSelected || toppings.length >= maximumToppingsBySize
+            }
           >
             <FiPlus />
           </ControlButton>
